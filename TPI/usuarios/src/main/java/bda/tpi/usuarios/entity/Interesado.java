@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 @Entity
 public class Interesado {
     @Id
-    @Column(name = "clitipo")
+    @Column(name = "int-id")
     private Integer id;
+    @Column(name = "int-documento")
+    private Long documento;
 }

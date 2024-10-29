@@ -7,12 +7,12 @@ import jakarta.persistence.Id;
 @Entity
 public class Empleado {
     @Id
-    @Column(name = "emplegajo")
+    @Column(name = "emp-legajo")
     private Integer legajo;
-    @Column(name = "empnombre")
+    @Column(name = "emp-nombre")
     private String nombre;
-    @Column(name = "empapellido")
+    @Column(name = "emp-apellido")
     private String apellido;
-    @Column(name = "emptelefono")
+    @Column(name = "emp-telefono")
     private Long telefono;
 }

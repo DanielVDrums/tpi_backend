@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/TPI/agencia/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/TPI/gateway/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/TPI/usuarios/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/TPI/vehiculos/src/main/java" charset="UTF-8" />
-  </component>
-</project>

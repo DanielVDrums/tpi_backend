@@ -1,13 +1,23 @@
 import jakarta.persistence.*;
+import java.util.List;
 
+@Entity
 public class Modelos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "id")
     private int id;
-    private int id_marca;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_marca", referencedColumnName = "id")
+    private Marcas marca;
+
+    @Column(name = "descripcion")
     private String descripcion;
+
+    @OneToMany(mappedBy = "modelo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Vehiculos> vehiculos;
 
     public void setId(int id) {
         this.id = id;
@@ -21,6 +31,9 @@ public class Modelos {
         this.descripcion = descripcion;
     }
 
+    public void setVehiculos(List<Vehiculos> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
 
     public int getId() {
         return id;
@@ -34,7 +47,9 @@ public class Modelos {
         return descripcion;
     }
 
-
+    public List<Vehiculos> getVehiculos() {
+        return vehiculos;
+    }
 
     public Modelos(int id, int id_marca, String descripcion) {
         this.id = id;
@@ -42,10 +57,6 @@ public class Modelos {
         this.descripcion = descripcion;
     }
 
-    public Modelos(){
-
+    public Modelos() {
     }
-
-
-
 }

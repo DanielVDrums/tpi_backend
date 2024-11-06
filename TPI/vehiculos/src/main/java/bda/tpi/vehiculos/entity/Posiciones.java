@@ -1,15 +1,27 @@
 import jakarta.persistence.*;
+import java.util.Date;
 
+@Entity
 public class Posiciones {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "id")
     private int id;
-    private int id_vehiculo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_vehiculo", referencedColumnName = "id")
+    private Vehiculos vehiculo;
+
+    @Column(name = "fecha_hora")
     private Date fecha_hora;
+
+    @Column(name = "latitud")
     private int latitud;
+
+    @Column(name = "longitud")
     private int longitud;
+
 
     public void setId(int id) {
         this.id = id;
@@ -31,7 +43,6 @@ public class Posiciones {
         this.longitud = longitud;
     }
 
-
     public int getId() {
         return id;
     }
@@ -52,7 +63,13 @@ public class Posiciones {
         return longitud;
     }
 
+    public Vehiculos getVehiculo() {
+        return vehiculo;
+    }
 
+    public void setVehiculo(Vehiculos vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 
     public Posiciones(int id, int id_vehiculo, Date fecha_hora, int latitud, int longitud) {
         this.id = id;
@@ -62,7 +79,6 @@ public class Posiciones {
         this.longitud = longitud;
     }
 
-    public Posiciones(){
-
+    public Posiciones() {
     }
 }

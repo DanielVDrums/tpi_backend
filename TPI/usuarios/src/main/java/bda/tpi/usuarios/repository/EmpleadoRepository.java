@@ -1,4 +1,7 @@
 package bda.tpi.usuarios.repository;
 
-public interface EmpleadoRepository {
+import bda.tpi.usuarios.entity.Empleado;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EmpleadoRepository extends JpaRepository<Empleado, Integer> {
 }

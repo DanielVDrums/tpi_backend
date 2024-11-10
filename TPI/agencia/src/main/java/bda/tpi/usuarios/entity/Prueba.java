@@ -30,4 +30,7 @@ public class Prueba {
 
     @Column(name = "id_vehiculo")
     private Integer idVehiculo;
+
+    public Prueba() {
+    }
 }

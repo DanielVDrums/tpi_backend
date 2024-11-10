@@ -1,4 +1,7 @@
 package bda.tpi.usuarios.repository;
 
-public interface PruebaRepository {
+import bda.tpi.usuarios.entity.Prueba;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PruebaRepository extends JpaRepository<Prueba, Integer> {
 }

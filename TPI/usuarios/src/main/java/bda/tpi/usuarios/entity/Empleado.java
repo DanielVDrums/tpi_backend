@@ -1,10 +1,9 @@
 package bda.tpi.usuarios.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -19,4 +18,7 @@ public class Empleado {
     private String apellido;
     @Column(name = "telefono_contacto")
     private Long telefono;
+
+    @OneToMany(mappedBy = "empleado")
+    private List<Prueba> pruebas;
 }

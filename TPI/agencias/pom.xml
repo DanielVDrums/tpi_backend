@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>bda.tpi</groupId>
-    <artifactId>agencia</artifactId>
+    <artifactId>agencias</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>agencia</name>
     <description>agencia</description>

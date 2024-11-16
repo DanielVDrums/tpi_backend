@@ -1,11 +1,13 @@
-
 package bda.tpi.vehiculos.dto;
+
+import java.util.List;
+
 
 public record VehiculoDTO(
         Integer id,
         String patente,
-        String modelo,
-        String posicion
+        Integer idModelo,
+        List<Integer> posiciones
 ) {
 }
 

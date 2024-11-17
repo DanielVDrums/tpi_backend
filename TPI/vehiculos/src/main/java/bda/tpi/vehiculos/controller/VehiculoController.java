@@ -24,7 +24,7 @@ public class VehiculoController {
         return vehiculoServicio.agregarNuevoVehiculo(vehiculoDTO);
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public List<VehiculoDTO> obtenerTodosVehiculos() {
         return vehiculoServicio.obtenerTodosVehiculos();
     }

@@ -4,9 +4,11 @@ import bda.tpi.usuarios.dto.PruebaDTO;
 import bda.tpi.usuarios.entity.Interesado;
 import bda.tpi.usuarios.entity.Prueba;
 import bda.tpi.usuarios.repository.PruebaRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +27,12 @@ public class PruebaServicio {
         return new Prueba();
     }
 
-    public List<Prueba> obtenerPruebasPorFecha(){
+    // Consigna 1.b
+    public List<Prueba> obtenerPruebasEnCursoPorFecha(Date fechaMomento) {
+        return pruebaRepository.findPruebasEnCursoByFecha(fechaMomento);
+    }
+
+    public List<Prueba> obtenerPruebas() {
         return pruebaRepository.findAll();
     }
 }

@@ -17,8 +17,8 @@ public class Prueba {
     private Date fechaHoraInicio;
     @Column(name = "fecha_hora_fin")
     private Date fechaHoraFin;
-    @Column(name = "comentario")
-    private String comentario;
+    @Column(name = "comentarios")
+    private String comentarios;
 
     @ManyToOne
     @JoinColumn(name = "id_empleado", referencedColumnName = "legajo")

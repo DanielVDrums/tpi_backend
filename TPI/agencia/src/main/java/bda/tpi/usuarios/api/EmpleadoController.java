@@ -1,4 +1,4 @@
-package bda.tpi.usuarios.controller;
+package bda.tpi.usuarios.api;
 
 import bda.tpi.usuarios.entity.Empleado;
 import bda.tpi.usuarios.service.EmpleadoService;

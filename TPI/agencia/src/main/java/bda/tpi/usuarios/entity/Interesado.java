@@ -1,11 +1,14 @@
 package bda.tpi.usuarios.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
+@Data
+@Table(name = "interesados")
 public class Interesado {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,7 +1,7 @@
-package bda.tpi.usuarios.dto;
+package bda.tpi.usuarios.api.dto;
 
 public record PruebaDTO(
-        Integer idInteresado,
-        Integer idVehiculo
+        Integer usuarioDni,
+        Object vehiculo
 ) {
 }

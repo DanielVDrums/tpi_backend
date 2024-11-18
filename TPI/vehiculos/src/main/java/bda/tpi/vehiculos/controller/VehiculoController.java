@@ -24,7 +24,7 @@ public class VehiculoController {
         return vehiculoServicio.agregarNuevoVehiculo(vehiculoDTO);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public List<VehiculoDTO> obtenerTodosVehiculos() {
         return vehiculoServicio.obtenerTodosVehiculos();
     }
@@ -32,6 +32,11 @@ public class VehiculoController {
     @GetMapping("/{id}")
     public Optional<VehiculoDTO> obtenerVehiculoPorId(@PathVariable Integer id) {
         return vehiculoServicio.obtenerVehiculoPorId(id);
+    }
+
+    @GetMapping("/patente/{patente}")
+    public Optional<VehiculoDTO> obtenerVehiculoPorPatente(@PathVariable String patente) {
+        return vehiculoServicio.obtenerVehiculoPorPatente(patente);
     }
 }
 

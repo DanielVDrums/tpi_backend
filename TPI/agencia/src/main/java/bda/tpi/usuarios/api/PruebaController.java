@@ -1,6 +1,6 @@
 package bda.tpi.usuarios.api;
 
-import bda.tpi.usuarios.dto.PruebaDTO;
+import bda.tpi.usuarios.api.dto.PruebaDTO;
 import bda.tpi.usuarios.entity.Prueba;
 import bda.tpi.usuarios.service.PruebaServicio;
 import jakarta.validation.Valid;
@@ -51,7 +51,7 @@ public class PruebaController {
 
     @PostMapping("/add")
     private Prueba agregarPrueba(@RequestBody @Valid PruebaDTO pruebaDTO) {
-        //return pruebaServicio.agregarNuevaPrueba(pruebaDTO);
+        System.out.println(pruebaDTO);
         return new Prueba();
     }
 }

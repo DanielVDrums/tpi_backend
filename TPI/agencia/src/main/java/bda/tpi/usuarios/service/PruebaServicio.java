@@ -1,11 +1,9 @@
 package bda.tpi.usuarios.service;
 
-import bda.tpi.usuarios.dto.PruebaDTO;
+import bda.tpi.usuarios.api.dto.PruebaDTO;
 import bda.tpi.usuarios.entity.Interesado;
 import bda.tpi.usuarios.entity.Prueba;
 import bda.tpi.usuarios.repository.PruebaRepository;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -23,7 +21,7 @@ public class PruebaServicio {
     }
 
     public Prueba agregarNuevaPrueba(PruebaDTO pruebaDTO) {
-        Optional<Interesado> resultado = interesadoServicio.obtenerInteresadoPorId(pruebaDTO.idInteresado());
+        Optional<Interesado> resultado = interesadoServicio.obtenerInteresadoPorId(pruebaDTO.usuarioDni());
         return new Prueba();
     }
 

@@ -62,4 +62,17 @@ public class VehiculoServicio {
                                 .collect(Collectors.toList())
                 ));
     }
+
+    public Optional<VehiculoDTO> obtenerVehiculoPorPatente(String patente) {
+        return vehiculoRepository.findByPatente(patente)
+                .map(vehiculo -> new VehiculoDTO(
+                        vehiculo.getId(),
+                        vehiculo.getPatente(),
+                        vehiculo.getModelo().getId(),
+                        vehiculo.getPosiciones()
+                                .stream()
+                                .map(posicion -> Integer.valueOf(posicion.getId()))
+                                .collect(Collectors.toList())
+                ));
+    }
 }

@@ -22,7 +22,7 @@ public class ApiResponse {
 
         @Override
         public String toString() {
-            return "Coordenadas{" +
+            return "{" +
                     "lat=" + lat +
                     ", lon=" + lon +
                     '}';
@@ -52,7 +52,7 @@ public class ApiResponse {
 
         @Override
         public String toString() {
-            return "ZonaRestringida{" +
+            return "{" +
                     "noroeste=" + noroeste +
                     ", sureste=" + sureste +
                     '}';

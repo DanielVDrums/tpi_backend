@@ -74,6 +74,7 @@ public class VehiculoServicio {
                 .orElseThrow(() -> new IllegalArgumentException("Vehículo con ID " + vehiculoId + " no encontrado"));
 
         //avisar que las posiciones estan vacias, se muestra por consola
+        //NO OLVIDAR DESCOMENTAR
 //        if (vehiculo.getPosiciones().isEmpty()) {
 //            throw new IllegalStateException("Cargue posiciones");
 //        }

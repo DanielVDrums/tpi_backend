@@ -2,6 +2,7 @@ package bda.tpi.vehiculos.controller;
 
 import bda.tpi.vehiculos.dto.PosicionDTO;
 import bda.tpi.vehiculos.dto.VehiculoDTO;
+import bda.tpi.vehiculos.entity.Vehiculo;
 import bda.tpi.vehiculos.service.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

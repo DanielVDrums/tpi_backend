@@ -45,6 +45,7 @@ public class PruebaServicio {
             if (bodyMapVehiculo == null || bodyMapVehiculo.isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El vehiculo no existe");
             }
+            bodyMapVehiculo.get("");
         }
     }
 }

@@ -39,29 +39,12 @@ public class VehiculoServicio {
     }
 
 
-    public List<VehiculoDTO> obtenerTodosVehiculos() {
-        return vehiculoRepository.findAll().stream()
-                .map(vehiculo -> new VehiculoDTO(
-                        vehiculo.getId(),
-                        vehiculo.getPatente(),
-                        vehiculo.getModelo().getId(),
-                        vehiculo.getPosiciones().stream()
-                                .map(Posicion::getId)
-                                .collect(Collectors.toList())
-                ))
-                .toList();
+    public List<Vehiculo> obtenerTodosVehiculos() {
+        return vehiculoRepository.findAll();
     }
 
-    public Optional<VehiculoDTO> obtenerVehiculoPorId(Integer id) {
-        return vehiculoRepository.findById(id)
-                .map(vehiculo -> new VehiculoDTO(
-                        vehiculo.getId(),
-                        vehiculo.getPatente(),
-                        vehiculo.getModelo().getId(),
-                        vehiculo.getPosiciones().stream()
-                                .map(Posicion::getId)
-                                .collect(Collectors.toList())
-                ));
+    public Optional<Vehiculo> obtenerVehiculoPorId(Integer id) {
+        return vehiculoRepository.findById(id);
     }
 
     public void evaluarRestricciones(PosicionDTO posicionDTO) {
@@ -143,5 +126,9 @@ public class VehiculoServicio {
         notificacion.setVehiculo(vehiculo);
         notificacion.setFechaHora(fechaHora);
         notificacionRepository.save(notificacion);
+    }
+
+    public Optional<Vehiculo> obtenerVehiculoPorPatente(String patente) {
+        return vehiculoRepository.findByPatente(patente);
     }
 }

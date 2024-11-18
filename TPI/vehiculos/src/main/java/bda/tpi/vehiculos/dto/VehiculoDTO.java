@@ -5,8 +5,8 @@ import java.util.List;
 public record VehiculoDTO(
         Integer id,
         String patente,
-        Integer idModelo,
-        List<Integer> posiciones
+        String modelo,
+        String marca
 ) {
 }
 

@@ -56,4 +56,11 @@ public class Modelo {
         this.vehiculos = vehiculos;
     }
 
+    @Override
+    public String toString() {
+        return "Modelo{" +
+                "marca=" + marca +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
+    }
 }

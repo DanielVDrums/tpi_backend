@@ -2,6 +2,7 @@ package bda.tpi.vehiculos.controller;
 
 import bda.tpi.vehiculos.dto.PosicionDTO;
 import bda.tpi.vehiculos.dto.VehiculoDTO;
+import bda.tpi.vehiculos.entity.Vehiculo;
 import bda.tpi.vehiculos.service.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +28,34 @@ public class VehiculoController {
 //    }
 
     @GetMapping()
-    public List<VehiculoDTO> obtenerTodosVehiculos() {
-        return vehiculoServicio.obtenerTodosVehiculos();
+    public ResponseEntity<?> obtenerTodosVehiculos() {
+        List<Vehiculo> vehiculos = vehiculoServicio.obtenerTodosVehiculos();
+        if (vehiculos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.ok(vehiculos.stream().map(v->v.toDTO()).toList());
+        }
     }
 
     @GetMapping("/{id}")
-    public Optional<VehiculoDTO> obtenerVehiculoPorId(@PathVariable Integer id) {
-        return vehiculoServicio.obtenerVehiculoPorId(id);
+    public ResponseEntity<?> obtenerVehiculoPorId(@PathVariable Integer id) {
+        Optional<Vehiculo> vehiculo = vehiculoServicio.obtenerVehiculoPorId(id);
+        if (vehiculo.isPresent()) {
+            return ResponseEntity.ok(vehiculo.get().toDTO());
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
+    @GetMapping("/patente/{patente}")
+    public ResponseEntity<?> obtenerVehiculoPorPatente(@PathVariable String patente) {
+        Optional<Vehiculo> vehiculo = vehiculoServicio.obtenerVehiculoPorPatente(patente);
+        if(vehiculo.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(vehiculo.get().toDTO());
+        }
+    }
 
     @PostMapping("/evaluarPosicion")
     public ResponseEntity<Void> evaluarRestricciones(@RequestBody PosicionDTO posicionDTO) {

@@ -17,7 +17,6 @@ public class Marca {
     @Column(name = "nombre")
     private String nombre;
 
-    @OneToMany(mappedBy = "marca", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "marca", fetch = FetchType.LAZY)
     private List<Modelo> modelos;
-
 }

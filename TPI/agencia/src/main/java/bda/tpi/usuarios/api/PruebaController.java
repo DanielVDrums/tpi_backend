@@ -50,8 +50,9 @@ public class PruebaController {
     }
 
     @PostMapping("/add")
-    private Prueba agregarPrueba(@RequestBody @Valid PruebaDTO pruebaDTO) {
-        //return pruebaServicio.agregarNuevaPrueba(pruebaDTO);
+    private ResponseEntity<?> agregarPrueba(@RequestBody @Valid PruebaDTO pruebaDTO) {
+        pruebaServicio.buscarVehiculoPatente(pruebaDTO.vehiculoPatente());
+        pruebaServicio.agregarNuevaPrueba();
         return new Prueba();
     }
 }

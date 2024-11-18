@@ -1,7 +1,7 @@
 package bda.tpi.vehiculos.controller;
 
+import bda.tpi.vehiculos.dto.PosicionDTO;
 import bda.tpi.vehiculos.dto.VehiculoDTO;
-import bda.tpi.vehiculos.entity.Vehiculo;
 import bda.tpi.vehiculos.service.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,11 +56,10 @@ public class VehiculoController {
         }
     }
 
-    //ESTO HAY QUE RECONTRA CAMBIARLO PORQUE SE OBTIENE POR API DEL PROFE
-    //HAY QUE HACER EL DTO DEL JSON QUE NOS DA LA API DEL PROFE Y PASARSELO
-    @GetMapping("/{id}/evaluarPosicion")
-    public void evaluarRestriccionesPorVehiculo(@PathVariable Integer id) {
-        vehiculoServicio.evaluarRestricciones(id);
+    @PostMapping("/evaluarPosicion")
+    public ResponseEntity<Void> evaluarRestricciones(@RequestBody PosicionDTO posicionDTO) {
+        vehiculoServicio.evaluarRestricciones(posicionDTO);
+        return ResponseEntity.ok().build();
     }
 }
 

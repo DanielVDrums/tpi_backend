@@ -1,5 +1,6 @@
 package bda.tpi.vehiculos.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -19,7 +20,9 @@ public class Notificacion {
     private String mensaje;
 
     @Column(name = "fecha_hora")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaHora;
+
 
 
     public Integer getId() {

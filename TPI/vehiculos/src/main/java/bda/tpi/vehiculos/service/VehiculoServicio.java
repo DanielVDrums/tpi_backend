@@ -12,6 +12,7 @@ import bda.tpi.vehiculos.repository.PosicionRepository;
 import bda.tpi.vehiculos.repository.NotificacionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -78,12 +79,12 @@ public class VehiculoServicio {
 
         // Validar restricciones
         if (distancia > configuracion.getRadioAdmitidoKm()) {
-            generarNotificacion("El vehículo está fuera del radio permitido.", vehiculo.orElse(null));
+            generarNotificacion("El vehículo está fuera del radio permitido.", vehiculo.orElse(null), LocalDateTime.now());
         }
 
         for (ApiResponse.ZonaRestringida zona : configuracion.getZonasRestringidas()) {
             if (estaEnZonaRestringida(posicionDTO, zona)) {
-                generarNotificacion("El vehículo está en una zona restringida.", vehiculo.orElse(null));
+                generarNotificacion("El vehículo está en una zona restringida.", vehiculo.orElse(null), LocalDateTime.now());
             }
         }
     }
@@ -113,10 +114,11 @@ public class VehiculoServicio {
     }
 
     //genera la notificacion y guarda en BD
-    private void generarNotificacion(String mensaje, Vehiculo vehiculo) {
+    private void generarNotificacion(String mensaje, Vehiculo vehiculo, LocalDateTime fechaHora) {
         Notificacion notificacion = new Notificacion();
         notificacion.setMensaje(mensaje);
         notificacion.setVehiculo(vehiculo);
+        notificacion.setFechaHora(fechaHora);
         notificacionRepository.save(notificacion);
     }
 }

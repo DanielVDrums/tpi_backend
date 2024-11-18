@@ -33,5 +33,16 @@ public class VehiculoController {
     public Optional<VehiculoDTO> obtenerVehiculoPorId(@PathVariable Integer id) {
         return vehiculoServicio.obtenerVehiculoPorId(id);
     }
+
+
+    //ESTO HAY QUE RECONTRA CAMBIARLO PORQUE SE OBTIENE POR API DEL PROFE
+    //HAY QUE HACER EL DTO DEL JSON QUE NOS DA LA API DEL PROFE Y PASARSELO
+    @PostMapping("/{id}/evaluarPosicion")
+    public void evaluarPosicion(@PathVariable Integer id,
+                                @RequestParam String nuevaPosicion,
+                                @RequestParam String limitePermitido,
+                                @RequestParam List<String> zonasPeligrosas) {
+        vehiculoServicio.evaluarPosicionVehiculo(id, nuevaPosicion, limitePermitido, zonasPeligrosas);
+    }
 }
 

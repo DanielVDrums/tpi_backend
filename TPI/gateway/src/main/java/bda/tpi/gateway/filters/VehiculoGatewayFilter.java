@@ -49,7 +49,7 @@ public class VehiculoGatewayFilter implements GatewayFilter {
                     bodyMap.put("vehiculo", bodyMapVehiculo);
                     bodyMap.remove("vehiculoPatente");
 
-                     String modifiedBody = objectMapper.writeValueAsString(bodyMap);
+                    String modifiedBody = objectMapper.writeValueAsString(bodyMap);
 
 //                     exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
 //                     DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(modifiedBody.getBytes(StandardCharsets.UTF_8));

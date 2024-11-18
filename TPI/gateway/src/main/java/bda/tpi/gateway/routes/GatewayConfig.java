@@ -14,10 +14,7 @@ public class GatewayConfig {
         return builder.routes()
                 .route("pruebas-add-route", r -> r
                         .path("/pruebas/agregar")
-                        .and()
-                        .method("POST")
-                        .filters(f -> f.filter(filter))
-                        .uri("http://127.0.0.1:8082/pruebas/add"))
+                        .uri("http://127.0.0.1:8083/vehiculos"))
                 .build();
     }
 }

@@ -7,9 +7,26 @@ public class ApiResponse {
     private double radioAdmitidoKm;
     private List<ZonaRestringida> zonasRestringidas;
 
+    @Override
+    public String toString() {
+        return "ApiResponse{" +
+                "coordenadasAgencia=" + coordenadasAgencia +
+                ", radioAdmitidoKm=" + radioAdmitidoKm +
+                ", zonasRestringidas=" + zonasRestringidas +
+                '}';
+    }
+
     public static class Coordenadas {
         private double lat;
         private double lon;
+
+        @Override
+        public String toString() {
+            return "Coordenadas{" +
+                    "lat=" + lat +
+                    ", lon=" + lon +
+                    '}';
+        }
 
         public double getLat() {
             return lat;
@@ -33,7 +50,13 @@ public class ApiResponse {
         private Coordenadas noroeste;
         private Coordenadas sureste;
 
-
+        @Override
+        public String toString() {
+            return "ZonaRestringida{" +
+                    "noroeste=" + noroeste +
+                    ", sureste=" + sureste +
+                    '}';
+        }
 
         public Coordenadas getNoroeste() {
             return noroeste;

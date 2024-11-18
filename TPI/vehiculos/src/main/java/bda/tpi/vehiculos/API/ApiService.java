@@ -15,6 +15,9 @@ public class ApiService {
 
     public ApiResponse obtenerJSON() {
         String url = "https://labsys.frc.utn.edu.ar/apps-disponibilizadas/backend/api/v1/configuracion/";
-        return restTemplate.getForObject(url, ApiResponse.class);
+        ApiResponse response = restTemplate.getForObject(url, ApiResponse.class);
+        System.out.println("Respuesta obtenida: " + response);
+        return response;
     }
+
 }

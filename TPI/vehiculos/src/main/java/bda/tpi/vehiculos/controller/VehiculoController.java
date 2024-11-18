@@ -19,10 +19,11 @@ public class VehiculoController {
     public VehiculoController(VehiculoServicio vehiculoServicio) {
         this.vehiculoServicio = vehiculoServicio;
     }
-    @PostMapping("/add")
-    public Vehiculo agregarVehiculo(@RequestBody VehiculoDTO vehiculoDTO) {
-        return vehiculoServicio.agregarNuevoVehiculo(vehiculoDTO);
-    }
+
+//    @PostMapping("/add")
+//    public Vehiculo agregarVehiculo(@RequestBody VehiculoDTO vehiculoDTO) {
+//        return vehiculoServicio.agregarNuevoVehiculo(vehiculoDTO);
+//    }
 
     @GetMapping()
     public List<VehiculoDTO> obtenerTodosVehiculos() {
@@ -37,12 +38,9 @@ public class VehiculoController {
 
     //ESTO HAY QUE RECONTRA CAMBIARLO PORQUE SE OBTIENE POR API DEL PROFE
     //HAY QUE HACER EL DTO DEL JSON QUE NOS DA LA API DEL PROFE Y PASARSELO
-    @PostMapping("/{id}/evaluarPosicion")
-    public void evaluarPosicion(@PathVariable Integer id,
-                                @RequestParam String nuevaPosicion,
-                                @RequestParam String limitePermitido,
-                                @RequestParam List<String> zonasPeligrosas) {
-        vehiculoServicio.evaluarPosicionVehiculo(id, nuevaPosicion, limitePermitido, zonasPeligrosas);
+    @GetMapping("/{id}/evaluarPosicion")
+    public void evaluarRestriccionesPorVehiculo(@PathVariable Integer id) {
+        vehiculoServicio.evaluarRestricciones(id);
     }
 }
 

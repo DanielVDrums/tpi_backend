@@ -1,5 +1,6 @@
 package bda.tpi.vehiculos.service;
 
+import bda.tpi.vehiculos.dto.PosicionDTO;
 import bda.tpi.vehiculos.dto.VehiculoDTO;
 import bda.tpi.vehiculos.entity.Posicion;
 import bda.tpi.vehiculos.entity.Vehiculo;
@@ -34,12 +35,6 @@ public class VehiculoServicio {
         this.apiService = apiService;
     }
 
-//    public Vehiculo agregarNuevoVehiculo(VehiculoDTO vehiculoDTO) {
-//        Vehiculo vehiculo = new Vehiculo();
-//        vehiculo.setPatente(vehiculoDTO.patente());
-//        vehiculo.setModelo(vehiculoDTO.idModelo());
-//        return vehiculoRepository.save(vehiculo);
-//    }
 
     public List<VehiculoDTO> obtenerTodosVehiculos() {
         return vehiculoRepository.findAll().stream()
@@ -66,63 +61,55 @@ public class VehiculoServicio {
                 ));
     }
 
-    //servicio para evaluar las restricciones que dieron por API
-    public void evaluarRestricciones(Integer vehiculoId) {
+    public void evaluarRestricciones(PosicionDTO posicionDTO) {
+        // Busca o crea el vehículo por patente
+        Optional<Vehiculo> vehiculo = vehiculoRepository.findByPatente(posicionDTO.patente());
 
-        //busca el vehiculo por el id
-        Vehiculo vehiculo = vehiculoRepository.findById(vehiculoId)
-                .orElseThrow(() -> new IllegalArgumentException("Vehículo con ID " + vehiculoId + " no encontrado"));
-
-        //avisar que las posiciones estan vacias, se muestra por consola
-        //NO OLVIDAR DESCOMENTAR
-//        if (vehiculo.getPosiciones().isEmpty()) {
-//            throw new IllegalStateException("Cargue posiciones");
-//        }
-
-
+        // Obtiene configuración desde la API
         ApiResponse configuracion = apiService.obtenerJSON();
 
-        // evalua restricciones para las posiciones del vehículo
-        for (Posicion posicion : vehiculo.getPosiciones()) {
-            double distancia = calcularDistancia(
-                    configuracion.getCoordenadasAgencia().getLat(),
-                    configuracion.getCoordenadasAgencia().getLon(),
-                    posicion.getLatitud(),
-                    posicion.getLongitud()
-            );
+        // Calcula la distancia desde la agencia
+        double distancia = calcularDistancia(
+                configuracion.getCoordenadasAgencia().getLat(),
+                configuracion.getCoordenadasAgencia().getLon(),
+                posicionDTO.latitud(),
+                posicionDTO.longitud()
+        );
 
-            // evalua si está fuera del radio permitido
-            if (distancia > configuracion.getRadioAdmitidoKm()) {
-                generarNotificacion("El vehículo está fuera del radio permitido.", vehiculo);
-            }
+        // Validar restricciones
+        if (distancia > configuracion.getRadioAdmitidoKm()) {
+            generarNotificacion("El vehículo está fuera del radio permitido.", vehiculo.orElse(null));
+        }
 
-            // evalua si está en una zona restringida
-            for (ApiResponse.ZonaRestringida zona : configuracion.getZonasRestringidas()) {
-                if (estaEnZonaRestringida(posicion, zona)) {
-                    generarNotificacion("El vehículo está en una zona restringida.", vehiculo);
-                }
+        for (ApiResponse.ZonaRestringida zona : configuracion.getZonasRestringidas()) {
+            if (estaEnZonaRestringida(posicionDTO, zona)) {
+                generarNotificacion("El vehículo está en una zona restringida.", vehiculo.orElse(null));
             }
         }
     }
 
-    //calcula la distancia con una formula de Haversine (la primera que me tiro gpt)
-    private double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
-        final int R = 6371; // Radio de la Tierra en km
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLon = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
+
+    //calcula la distancia
+    public double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
+        // Diferencias de latitud y longitud
+        double deltaLat = lat2 - lat1;
+        double deltaLon = lon2 - lon1;
+
+        // Ajustar la longitud por la latitud promedio
+        double latitudPromedio = Math.toRadians((lat1 + lat2) / 2);
+        double deltaLonAjustada = deltaLon * Math.cos(latitudPromedio);
+
+        // Calcular distancia aproximada en km
+        return 111.32 * Math.sqrt(deltaLat * deltaLat + deltaLonAjustada * deltaLonAjustada);
     }
 
+
     //valida si esta en zona
-    private boolean estaEnZonaRestringida(Posicion posicion, ApiResponse.ZonaRestringida zona) {
-        return posicion.getLatitud() <= zona.getNoroeste().getLat() &&
-                posicion.getLatitud() >= zona.getSureste().getLat() &&
-                posicion.getLongitud() >= zona.getNoroeste().getLon() &&
-                posicion.getLongitud() <= zona.getSureste().getLon();
+    private boolean estaEnZonaRestringida(PosicionDTO posicionDTO, ApiResponse.ZonaRestringida zona) {
+        return posicionDTO.latitud() <= zona.getNoroeste().getLat() &&
+                posicionDTO.latitud() >= zona.getSureste().getLat() &&
+                posicionDTO.longitud() >= zona.getNoroeste().getLon() &&
+                posicionDTO.longitud() <= zona.getSureste().getLon();
     }
 
     //genera la notificacion y guarda en BD

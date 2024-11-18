@@ -41,29 +41,12 @@ public class VehiculoServicio {
 //        return vehiculoRepository.save(vehiculo);
 //    }
 
-    public List<VehiculoDTO> obtenerTodosVehiculos() {
-        return vehiculoRepository.findAll().stream()
-                .map(vehiculo -> new VehiculoDTO(
-                        vehiculo.getId(),
-                        vehiculo.getPatente(),
-                        vehiculo.getModelo().getId(),
-                        vehiculo.getPosiciones().stream()
-                                .map(Posicion::getId)
-                                .collect(Collectors.toList())
-                ))
-                .toList();
+    public List<Vehiculo> obtenerTodosVehiculos() {
+        return vehiculoRepository.findAll();
     }
 
-    public Optional<VehiculoDTO> obtenerVehiculoPorId(Integer id) {
-        return vehiculoRepository.findById(id)
-                .map(vehiculo -> new VehiculoDTO(
-                        vehiculo.getId(),
-                        vehiculo.getPatente(),
-                        vehiculo.getModelo().getId(),
-                        vehiculo.getPosiciones().stream()
-                                .map(Posicion::getId)
-                                .collect(Collectors.toList())
-                ));
+    public Optional<Vehiculo> obtenerVehiculoPorId(Integer id) {
+        return vehiculoRepository.findById(id);
     }
 
     //servicio para evaluar las restricciones que dieron por API
@@ -131,5 +114,9 @@ public class VehiculoServicio {
         notificacion.setMensaje(mensaje);
         notificacion.setVehiculo(vehiculo);
         notificacionRepository.save(notificacion);
+    }
+
+    public Optional<Vehiculo> obtenerVehiculoPorPatente(String patente) {
+        return vehiculoRepository.findByPatente(patente);
     }
 }

@@ -1,5 +1,6 @@
 package bda.tpi.vehiculos.entity;
 
+import bda.tpi.vehiculos.dto.VehiculoDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,6 +25,15 @@ public class Vehiculo {
 
     @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Posicion> posiciones;
+
+    public VehiculoDTO toDTO() {
+        return new VehiculoDTO(
+                id,
+                patente,
+                modelo.getDescripcion(),
+                modelo.getMarca().getNombre()
+        );
+    }
 
     public Modelo getModelo() {
         return modelo;
@@ -56,7 +66,4 @@ public class Vehiculo {
     public void setPosiciones(List<Posicion> posiciones) {
         this.posiciones = posiciones;
     }
-
-
-
 }

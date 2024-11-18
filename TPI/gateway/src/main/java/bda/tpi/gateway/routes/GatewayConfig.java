@@ -17,7 +17,6 @@ public class GatewayConfig {
                         .uri("http://127.0.0.1:8082/empleados"))
                 .route(p -> p
                         .path("/pruebas/add")
-                        .filters(f -> f.filter(vehiculosFilter.apply(new VehiculosFilter.Config())))
                         .uri("http://127.0.0.1:8082/pruebas/add"))
                 .build();
     }

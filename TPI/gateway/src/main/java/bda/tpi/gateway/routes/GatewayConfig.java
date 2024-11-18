@@ -16,11 +16,7 @@ public class GatewayConfig {
                         .path("/pruebas/agregar")
                         .and()
                         .method("POST")
-                        .filters(f -> f.filter(filter)
-                                .modifyRequestBody(String.class, String.class, (exchange, originalBody) -> {
-                                    String modifiedBody = exchange.getAttribute("MODIFIED_BODY");
-                                    return Mono.just(modifiedBody);
-                                }))
+                        .filters(f -> f.filter(filter))
                         .uri("http://127.0.0.1:8082/pruebas/add"))
                 .build();
     }

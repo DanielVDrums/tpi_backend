@@ -12,7 +12,9 @@ import bda.tpi.vehiculos.repository.PosicionRepository;
 import bda.tpi.vehiculos.repository.NotificacionRepository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,8 +65,29 @@ public class VehiculoServicio {
     }
 
     public void evaluarRestricciones(PosicionDTO posicionDTO) {
-        // Busca o crea el vehículo por patente
-        Optional<Vehiculo> vehiculo = vehiculoRepository.findByPatente(posicionDTO.patente());
+        Optional<Vehiculo> vehiculoOptional = vehiculoRepository.findByPatente(posicionDTO.patente());
+        Vehiculo vehiculo;
+
+        if (vehiculoOptional.isPresent()) {
+            vehiculo = vehiculoOptional.get();
+        } else {
+            throw new IllegalArgumentException("El vehículo con la patente " + posicionDTO.patente() + " no existe.");
+        }
+
+        // Crear un objeto Posicion y asociarlo al vehículo
+        Posicion nuevaPosicion = new Posicion(
+                vehiculo,
+                new Date(),
+                posicionDTO.latitud(),
+                posicionDTO.longitud()
+        );
+
+
+        // Agregar la nueva posición a la lista de posiciones del vehículo
+        vehiculo.getPosiciones().add(nuevaPosicion);
+
+        // Guardar el vehículo actualizado y la posición en la base de datos
+        vehiculoRepository.save(vehiculo);
 
         // Obtiene configuración desde la API
         ApiResponse configuracion = apiService.obtenerJSON();
@@ -79,12 +102,12 @@ public class VehiculoServicio {
 
         // Validar restricciones
         if (distancia > configuracion.getRadioAdmitidoKm()) {
-            generarNotificacion("El vehículo está fuera del radio permitido.", vehiculo.orElse(null), LocalDateTime.now());
+            generarNotificacion("El vehículo está fuera del radio permitido.", vehiculo, LocalDateTime.now());
         }
 
         for (ApiResponse.ZonaRestringida zona : configuracion.getZonasRestringidas()) {
             if (estaEnZonaRestringida(posicionDTO, zona)) {
-                generarNotificacion("El vehículo está en una zona restringida.", vehiculo.orElse(null), LocalDateTime.now());
+                generarNotificacion("El vehículo está en una zona restringida.", vehiculo, LocalDateTime.now());
             }
         }
     }

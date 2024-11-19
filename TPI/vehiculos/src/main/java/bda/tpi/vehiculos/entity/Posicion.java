@@ -3,6 +3,8 @@ package bda.tpi.vehiculos.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -10,8 +12,9 @@ import java.util.Date;
 @Table(name = "posiciones")
 public class Posicion {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -23,8 +26,26 @@ public class Posicion {
     private Date fecha_hora;
 
     @Column(name = "latitud")
-    private int latitud;
+    private Double latitud;
 
     @Column(name = "longitud")
+<<<<<<< HEAD
     private int longitud;
+=======
+    private Double longitud;
+
+    public Posicion( Vehiculo vehiculo,Date fecha_hora, Double latitud, Double longitud) {
+        this.vehiculo = vehiculo;
+        this.fecha_hora = fecha_hora;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
+
+    public Posicion(){
+
+    }
+
+
+
+>>>>>>> 4e65e7e6fbc4679da8120765542754169afb2cda
 }

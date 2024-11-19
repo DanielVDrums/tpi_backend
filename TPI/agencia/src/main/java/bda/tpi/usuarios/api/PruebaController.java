@@ -30,16 +30,15 @@ public class PruebaController {
             return ResponseEntity.ok(pruebas);
         }
     }
-
     // consigna 1.b
     @GetMapping("/enCurso")
-    public ResponseEntity<?> obtenerPruebaEnCurso(@RequestParam(value = "fechaHora", required = false) String fechaIngresada) throws ParseException{
+    public ResponseEntity<?> obtenerPruebaEnCurso(@RequestParam(value = "fecha", required = false) String fecha, @RequestParam(value = "hora", required = false) String hora) throws ParseException{
         Date fechaHora;
-        if (fechaIngresada == null) {
+        if (fecha == null && hora == null) {
             fechaHora = new Date();
         }else{
-            DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            fechaHora = format.parse(fechaIngresada);
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            fechaHora = format.parse(fecha+" "+hora);
         }
         List<Prueba> pruebas = pruebaServicio.obtenerPruebasEnCursoPorFecha(fechaHora);
         if (pruebas.isEmpty()) {
@@ -53,5 +52,11 @@ public class PruebaController {
     public ResponseEntity<?> agregarPrueba(@RequestBody @Valid PruebaDTO pruebaDTO) {
         Prueba prueba = pruebaServicio.agregarNuevaPrueba(pruebaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(prueba);
+    }
+
+    //Consigna 1.f
+    @GetMapping("/reportes/incidentes")
+    public List<Prueba> generarReportesIncidentesPruebas(){
+        return pruebaServicio.obtenerPruebasConIncidentes();
     }
 }

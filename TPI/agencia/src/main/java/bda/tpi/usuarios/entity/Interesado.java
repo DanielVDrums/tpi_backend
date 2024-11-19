@@ -1,5 +1,7 @@
 package bda.tpi.usuarios.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,9 +28,11 @@ public class Interesado {
     private Boolean restringido;
     @Column(name = "nro_licencia")
     private Integer nroLicencia;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "fecha_vencimiento_licencia")
     private Date fechaVencimientoLicencia;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "interesado")
     private List<Prueba> pruebas;
 

@@ -1,5 +1,6 @@
 package bda.tpi.vehiculos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Marca {
     @Column(name = "nombre")
     private String nombre;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "marca", fetch = FetchType.LAZY)
     private List<Modelo> modelos;
 }

@@ -1,5 +1,6 @@
 package bda.tpi.vehiculos.service;
 
+import bda.tpi.vehiculos.dto.IncidenteDTO;
 import bda.tpi.vehiculos.dto.PosicionDTO;
 import bda.tpi.vehiculos.dto.VehiculoDTO;
 import bda.tpi.vehiculos.entity.Posicion;

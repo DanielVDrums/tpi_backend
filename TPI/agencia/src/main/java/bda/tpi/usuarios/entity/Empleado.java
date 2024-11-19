@@ -1,5 +1,6 @@
 package bda.tpi.usuarios.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class Empleado {
     @Column(name = "telefono_contacto")
     private Long telefono;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "empleado")
     private List<Prueba> pruebas;
 }

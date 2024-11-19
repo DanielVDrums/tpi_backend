@@ -1,6 +1,7 @@
 package bda.tpi.vehiculos.entity;
 
 import bda.tpi.vehiculos.dto.VehiculoDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,10 +20,12 @@ public class Vehiculo {
     @Column(name = "patente")
     private String patente;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_modelo", referencedColumnName = "id")
     private Modelo modelo;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Posicion> posiciones;
 

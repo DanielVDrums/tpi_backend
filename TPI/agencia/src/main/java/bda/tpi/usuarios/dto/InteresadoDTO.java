@@ -11,6 +11,6 @@ public record InteresadoDTO (
         String apellido,
         Boolean restringido,
         Integer nroLicencia,
-        Date fechaVencimientoLicencia
+        String fechaVencimientoLicencia
 ){
 }

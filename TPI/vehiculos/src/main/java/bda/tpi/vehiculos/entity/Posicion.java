@@ -40,8 +40,4 @@ public class Posicion {
     public Posicion(){
 
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 2afb4df1134ccd86acd30862c57c367795f6dd1f
 }

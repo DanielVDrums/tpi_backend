@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "interesados")
 public class Interesado {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     @Column(name = "tipo_documento")
@@ -29,9 +29,21 @@ public class Interesado {
     @Column(name = "fecha_vencimiento_licencia")
     private Date fechaVencimientoLicencia;
 
-
     @OneToMany(mappedBy = "interesado")
     private List<Prueba> pruebas;
+
+    public Interesado(String tipoDocumento, Long documento, String nombre, String apellido, Boolean restringido, Integer nroLicencia, Date fechaVencimientoLicencia) {
+        this.tipoDocumento = tipoDocumento;
+        this.documento = documento;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.restringido = restringido;
+        this.nroLicencia = nroLicencia;
+        this.fechaVencimientoLicencia = fechaVencimientoLicencia;
+    }
+
+    public Interesado() {
+    }
 
     public boolean licenciaVigente() {
         Date fechaActual = new Date();

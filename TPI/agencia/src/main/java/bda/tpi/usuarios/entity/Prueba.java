@@ -1,5 +1,6 @@
 package bda.tpi.usuarios.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,9 +13,11 @@ public class Prueba {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private Integer id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "fecha_hora_inicio")
     private Date fechaHoraInicio;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "fecha_hora_fin")
     private Date fechaHoraFin;
     @Column(name = "comentarios")

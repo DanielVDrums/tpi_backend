@@ -12,7 +12,6 @@ import java.util.Date;
 @Table(name = "posiciones")
 public class Posicion {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -29,9 +28,6 @@ public class Posicion {
     private Double latitud;
 
     @Column(name = "longitud")
-<<<<<<< HEAD
-    private int longitud;
-=======
     private Double longitud;
 
     public Posicion( Vehiculo vehiculo,Date fecha_hora, Double latitud, Double longitud) {
@@ -45,7 +41,4 @@ public class Posicion {
 
     }
 
-
-
->>>>>>> 4e65e7e6fbc4679da8120765542754169afb2cda
 }

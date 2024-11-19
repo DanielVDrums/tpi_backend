@@ -46,7 +46,11 @@ public class ReporteServicio {
                     Optional<Prueba> prueba = pruebaServicio.obtenerPruebaPorIdVehiculoYFecha(incidente.idVehiculo(), fechaMomento);
                     prueba.ifPresent(pruebas::add);
                 }
-                return pruebas;
+                if (pruebas.isEmpty()){
+                    throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No se encontraron pruebas");
+                }else{
+                    return pruebas;
+                }
             } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo no Encontrado");
             }

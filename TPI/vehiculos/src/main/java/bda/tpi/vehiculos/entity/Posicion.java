@@ -12,7 +12,6 @@ import java.util.Date;
 @Table(name = "posiciones")
 public class Posicion {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -41,4 +40,8 @@ public class Posicion {
     public Posicion(){
 
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2afb4df1134ccd86acd30862c57c367795f6dd1f
 }

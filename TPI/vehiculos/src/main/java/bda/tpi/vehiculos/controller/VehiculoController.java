@@ -7,6 +7,7 @@ import bda.tpi.vehiculos.entity.Vehiculo;
 import bda.tpi.vehiculos.service.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,6 +59,7 @@ public class VehiculoController {
         }
     }
 
+    @PreAuthorize("hasRole('VEHICULO') and principal.claims['preferred_username'] == 'g070-c'")
     @PostMapping("/evaluarPosicion")
     public ResponseEntity<Void> evaluarRestricciones(@RequestBody PosicionDTO posicionDTO) {
         vehiculoServicio.evaluarRestricciones(posicionDTO);

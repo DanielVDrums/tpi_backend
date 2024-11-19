@@ -27,5 +27,4 @@ public class Posicion {
 
     @Column(name = "longitud")
     private int longitud;
-
 }

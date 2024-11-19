@@ -33,4 +33,12 @@ public class Prueba {
 
     public Prueba() {
     }
+
+    public Prueba(Date fechaHoraInicio, Date fechaHoraFin, Empleado empleado, Interesado interesado, Integer idVehiculo) {
+        this.fechaHoraInicio = fechaHoraInicio;
+        this.fechaHoraFin = fechaHoraFin;
+        this.empleado = empleado;
+        this.interesado = interesado;
+        this.idVehiculo = idVehiculo;
+    }
 }

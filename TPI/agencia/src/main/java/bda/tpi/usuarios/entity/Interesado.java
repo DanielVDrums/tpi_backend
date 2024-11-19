@@ -32,4 +32,9 @@ public class Interesado {
 
     @OneToMany(mappedBy = "interesado")
     private List<Prueba> pruebas;
+
+    public boolean licenciaVigente() {
+        Date fechaActual = new Date();
+        return fechaActual.after(fechaVencimientoLicencia);
+    }
 }

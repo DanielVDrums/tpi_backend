@@ -21,4 +21,13 @@ public class ReportesController {
     public List<Prueba> obtenerReportesDeIncidentes(){
         return reporteServicio.obtenerPruebasConIncidentes();
     }
+
+    @GetMapping("/empleados")
+    public void obtenerReportesDeEmpleados(){}
+
+    @GetMapping("/kilometros")
+    public void obtenerReportesDeKilometrosPrueba(){}
+
+    @GetMapping("/pruebas/vehiculo/{:id}")
+    public void obtenerReportesDeVehiculosPrueba(){}
 }

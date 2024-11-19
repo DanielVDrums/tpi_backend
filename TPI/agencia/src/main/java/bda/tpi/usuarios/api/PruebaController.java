@@ -53,10 +53,4 @@ public class PruebaController {
         Prueba prueba = pruebaServicio.agregarNuevaPrueba(pruebaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(prueba);
     }
-
-    //Consigna 1.f
-    @GetMapping("/reportes/incidentes")
-    public List<Prueba> generarReportesIncidentesPruebas(){
-        return pruebaServicio.obtenerPruebasConIncidentes();
-    }
 }

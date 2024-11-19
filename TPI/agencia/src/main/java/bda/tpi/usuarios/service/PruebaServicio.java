@@ -89,35 +89,7 @@ public class PruebaServicio {
         }
     }
 
-    public List<Prueba> obtenerPruebasConIncidentes() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            ResponseEntity<List> response = restTemplate.getForEntity("http://127.0.0.1:8083/incidentes", List.class);
-            if (response.getStatusCode().is2xxSuccessful()) {
-                System.out.println(response.getBody());
-                for (Object incidente : response.getBody()){
-                    IncidenteDTO inc = objectMapper.convertValue(incidente, IncidenteDTO.class);
-                    System.out.println(incidente);
-                    inc.idVehiculo();
-                    inc.patente();
-                }
-//                Map<String, Object> bodyMapIncidentes = response.getBody();
-//                // Iterar sobre las entradas del Map
-//                 for (Map.Entry<String, Object> entrada : bodyMapIncidentes.entrySet()) {
-//                     String clave = entrada.getKey();
-//                     Object valor = entrada.getValue();
-//                     System.out.println("Clave: " + clave + ", Valor: " + valor); }
-                List<Prueba> pruebas = new ArrayList<>();
-                return pruebas;
-            } else {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo no Encontrado");
-            }
-        } catch (HttpClientErrorException e) {
-            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo no Encontrado");
-            } else {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al buscar el vehiculo", e);
-            }
-        }
+    public Optional<Prueba> obtenerPruebaPorIdVehiculoYFecha(Integer id, Date fechaMomento) {
+        return pruebaRepository.findPruebaByIdVehiculoYFecha(id, fechaMomento);
     }
 }

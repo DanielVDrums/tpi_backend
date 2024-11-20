@@ -14,7 +14,9 @@ import bda.tpi.vehiculos.repository.NotificacionRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -132,4 +134,31 @@ public class VehiculoServicio {
     public Optional<Vehiculo> obtenerVehiculoPorPatente(String patente) {
         return vehiculoRepository.findByPatente(patente);
     }
+
+    public double calcularKilometrosRecorridos(Integer idVehiculo) {
+        // Recuperar las posiciones del vehículo entre las fechas indicadas
+
+        List<Posicion> posiciones = posicionRepository.buscarPorVehiculoYFechas(idVehiculo);
+
+        //List<Posicion> posiciones = posicionRepository.buscarPorVehiculoYFechas(idVehiculo, fechaInicio, fechaFin);
+
+        if (posiciones.isEmpty()) {
+            throw new IllegalArgumentException("No se encontraron posiciones para el vehículo con ID " + idVehiculo);
+        }
+
+        // Calcular la distancia total recorrida
+        double distanciaTotal = 0.0;
+        for (int i = 1; i < posiciones.size(); i++) {
+            Posicion anterior = posiciones.get(i - 1);
+            Posicion actual = posiciones.get(i);
+            distanciaTotal += calcularDistancia(
+                    anterior.getLatitud(), anterior.getLongitud(),
+                    actual.getLatitud(), actual.getLongitud()
+            );
+        }
+
+        return distanciaTotal;
+    }
+
+
 }

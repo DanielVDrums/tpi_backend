@@ -40,4 +40,12 @@ public class Posicion {
     public Posicion(){
 
     }
+
+    public Date getFechaHora() {
+        return fecha_hora;
+    }
+
+    public void setFechaHora(Date fechaHora) {
+        this.fecha_hora = fechaHora;
+    }
 }

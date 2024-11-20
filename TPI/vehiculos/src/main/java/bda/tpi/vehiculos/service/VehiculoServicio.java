@@ -59,7 +59,7 @@ public class VehiculoServicio {
         if (vehiculoOptional.isPresent()) {
             vehiculo = vehiculoOptional.get();
         } else {
-            throw new IllegalArgumentException("El vehículo con la patente " + posicionDTO.patente() + " no existe.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "El vehículo con la patente " + posicionDTO.patente() + " no existe.");
         }
 
         // Crear un objeto Posicion y asociarlo al vehículo
@@ -77,7 +77,7 @@ public class VehiculoServicio {
         // Guardar el vehículo actualizado y la posición en la base de datos
         vehiculoRepository.save(vehiculo);
 
-        // Obtiene configuración desde la API
+        // Obtiene Objeto desde la API
         ApiResponse configuracion = apiService.obtenerJSON();
 
         // Calcula la distancia desde la agencia

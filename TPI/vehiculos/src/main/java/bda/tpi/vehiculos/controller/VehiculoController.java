@@ -53,6 +53,7 @@ public class VehiculoController {
         }
     }
 
+    // Permisos de vehiculo
     @GetMapping("/patente/{patente}")
     public ResponseEntity<?> obtenerVehiculoPorPatente(@PathVariable String patente) {
         Optional<Vehiculo> vehiculo = vehiculoServicio.obtenerVehiculoPorPatente(patente);
@@ -62,24 +63,14 @@ public class VehiculoController {
             return ResponseEntity.ok(vehiculo.get().toDTO());
         }
     }
-
+    // Permisos de Vehiculo /vehiculos/recibirPosicion
     @PostMapping("/evaluarPosicion")
     public ResponseEntity<Void> evaluarRestricciones(@RequestBody PosicionDTO posicionDTO) {
         vehiculoServicio.evaluarRestricciones(posicionDTO);
         return ResponseEntity.ok().build();
     }
 
-
-//    @GetMapping("/kilometrosRecorridos/{id}")
-//    public ResponseEntity<Double> kilometrosRecorridos(
-//            @PathVariable Integer id) {
-//
-//        System.out.println("ID recibido: " + id);
-//
-//        double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id);
-//        return ResponseEntity.ok(kilometros);
-//    }
-
+    // Permisos de administrador    /reportes/kilometros
     @GetMapping("/kilometrosRecorridos/{id}")
     public ResponseEntity<Double> kilometrosRecorridos(
             @PathVariable Integer id,
@@ -91,7 +82,5 @@ public class VehiculoController {
         double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id, fechaInicioDate, fechaFinDate);
         return ResponseEntity.ok(kilometros);
     }
-
-
 }
 

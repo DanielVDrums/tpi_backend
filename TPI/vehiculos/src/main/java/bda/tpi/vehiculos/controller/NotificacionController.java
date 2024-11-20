@@ -18,15 +18,16 @@ public class NotificacionController {
         this.notificacionServicio = notificacionServicio;
     }
 
+    // Esta no se llama desde el gateway
     @GetMapping("/incidentes")
     public List<IncidenteDTO> obtenerVehiculosConIncidentes(){
         return notificacionServicio.obtenerVehiculoConIncidente()
                 .stream().map(Notificacion::toIncidenteDTO).toList();
     }
 
+    // permisos de empleado /notificacion/promocion
     @PostMapping("/enviarPromocion")
     public void enviarPromocion(@RequestBody NotificacionPromDTO notificacionPromDTO) {
         notificacionServicio.enviarNotificacionesPromocion(notificacionPromDTO);
     }
-
 }

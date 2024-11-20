@@ -90,4 +90,20 @@ public class PruebaServicio {
     public Optional<Prueba> obtenerPruebaPorIdVehiculoYFecha(Integer id, Date fechaMomento) {
         return pruebaRepository.findPruebaByIdVehiculoYFecha(id, fechaMomento);
     }
+
+    public Prueba finalizarPruebaPorEmpleado(Integer legajo, String comentario) {
+        Empleado empleado = empleadoService.obtenerEmpleadoPorLegajo(legajo);
+        Prueba pruebaActual = null;
+        for(Prueba prueba : empleado.getPruebas()){
+            if(prueba.esPruebaActual()){
+                pruebaActual = prueba;
+            }
+        }
+        if(pruebaActual == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Prueba no Encontrada");
+        }else {
+            pruebaActual.setComentarios(comentario);
+            return pruebaRepository.save(pruebaActual);
+        }
+    }
 }

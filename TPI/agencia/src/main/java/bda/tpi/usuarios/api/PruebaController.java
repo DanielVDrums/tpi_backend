@@ -1,7 +1,9 @@
 package bda.tpi.usuarios.api;
 
+import bda.tpi.usuarios.dto.ComentarioDTO;
 import bda.tpi.usuarios.dto.PruebaDTO;
 import bda.tpi.usuarios.entity.Prueba;
+import bda.tpi.usuarios.service.EmpleadoService;
 import bda.tpi.usuarios.service.PruebaServicio;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,8 +20,12 @@ import java.util.List;
 @RequestMapping("/pruebas")
 public class PruebaController {
     private final PruebaServicio pruebaServicio;
+    private final EmpleadoService empleadoService;
 
-    public PruebaController(PruebaServicio pruebaServicio) {this.pruebaServicio = pruebaServicio;}
+    public PruebaController(PruebaServicio pruebaServicio, EmpleadoService empleadoService) {
+        this.pruebaServicio = pruebaServicio;
+        this.empleadoService = empleadoService;
+    }
 
     @GetMapping
     public ResponseEntity<?> obtenerPruebas() {
@@ -52,5 +58,10 @@ public class PruebaController {
     public ResponseEntity<?> agregarPrueba(@RequestBody @Valid PruebaDTO pruebaDTO) {
         Prueba prueba = pruebaServicio.agregarNuevaPrueba(pruebaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(prueba);
+    }
+
+    @PostMapping("/empleado/{id}/finalizar")
+    public Prueba finalizarPrueba(@PathVariable Integer legajo, @RequestBody ComentarioDTO mensaje) {
+        return pruebaServicio.finalizarPruebaPorEmpleado(legajo, mensaje.comentario());
     }
 }

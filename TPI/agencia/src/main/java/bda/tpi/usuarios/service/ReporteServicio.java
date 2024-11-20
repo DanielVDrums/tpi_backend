@@ -61,7 +61,7 @@ public class ReporteServicio {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al buscar el vehiculo", e);
             }
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage(),e);
         }
     }
 }

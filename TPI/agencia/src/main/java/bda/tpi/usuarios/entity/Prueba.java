@@ -44,4 +44,9 @@ public class Prueba {
         this.interesado = interesado;
         this.idVehiculo = idVehiculo;
     }
+
+    public Boolean esPruebaActual() {
+        Date fechaHoraActual = new Date();
+        return fechaHoraInicio.before(fechaHoraActual) && fechaHoraFin.after(fechaHoraActual);
+    }
 }

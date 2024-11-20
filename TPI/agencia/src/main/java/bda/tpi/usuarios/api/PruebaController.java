@@ -20,11 +20,9 @@ import java.util.List;
 @RequestMapping("/pruebas")
 public class PruebaController {
     private final PruebaServicio pruebaServicio;
-    private final EmpleadoService empleadoService;
 
-    public PruebaController(PruebaServicio pruebaServicio, EmpleadoService empleadoService) {
+    public PruebaController(PruebaServicio pruebaServicio) {
         this.pruebaServicio = pruebaServicio;
-        this.empleadoService = empleadoService;
     }
 
     @GetMapping
@@ -60,7 +58,7 @@ public class PruebaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(prueba);
     }
 
-    @PostMapping("/empleado/{id}/finalizar")
+    @PostMapping("/empleado/{legajo}/finalizar")
     public Prueba finalizarPrueba(@PathVariable Integer legajo, @RequestBody ComentarioDTO mensaje) {
         return pruebaServicio.finalizarPruebaPorEmpleado(legajo, mensaje.comentario());
     }

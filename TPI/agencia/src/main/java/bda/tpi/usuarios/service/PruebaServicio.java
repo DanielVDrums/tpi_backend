@@ -35,11 +35,15 @@ public class PruebaServicio {
         Integer idVehiculo = this.buscarVehiculoPatente(pruebaDTO.vehiculoPatente());
         Empleado empleado = empleadoService.obtenerEmpleadoPorLegajo(pruebaDTO.legajo());
         Interesado interesado = interesadoServicio.obtenerInteresadoPorDocumento(pruebaDTO.usuarioDni());
+        Optional<Prueba> prueba = pruebaRepository.findByIdVehiculo(idVehiculo);
+        if (prueba.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El vehiculo ya esta ocupado");
+        }
         if (!interesado.licenciaVigente()) {
-            System.out.println("no tiene licencia vigente");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "no tiene licencia vigente");
         }
         if (interesado.getRestringido()) {
-            System.out.println("Esta restringido");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Esta restringido para probar vehiculos");
         }
         try{
             Date fechaHoraInicio = format.parse(pruebaDTO.fechaHoraInicio());
@@ -95,7 +99,7 @@ public class PruebaServicio {
         Empleado empleado = empleadoService.obtenerEmpleadoPorLegajo(legajo);
         Prueba pruebaActual = null;
         for(Prueba prueba : empleado.getPruebas()){
-            if(prueba.esPruebaActual()){
+            if(prueba.esPruebaActual() && !prueba.esFinalizada()){
                 pruebaActual = prueba;
             }
         }

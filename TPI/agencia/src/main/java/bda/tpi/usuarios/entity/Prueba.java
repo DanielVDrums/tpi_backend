@@ -49,4 +49,8 @@ public class Prueba {
         Date fechaHoraActual = new Date();
         return fechaHoraInicio.before(fechaHoraActual) && fechaHoraFin.after(fechaHoraActual);
     }
+
+    public boolean esFinalizada() {
+        return comentarios != null;
+    }
 }

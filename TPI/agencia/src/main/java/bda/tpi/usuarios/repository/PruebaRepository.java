@@ -19,4 +19,6 @@ public interface PruebaRepository extends JpaRepository<Prueba, Integer> {
             value = "SELECT p FROM Prueba p WHERE p.fechaHoraFin >= :fhc AND p.fechaHoraInicio <= :fhc AND p.idVehiculo = :idVehiculo"
     )
     public Optional<Prueba> findPruebaByIdVehiculoYFecha(@Param("idVehiculo") Integer idVehiculo, @Param("fhc") Date fechaIngresada);
+
+    public Optional<Prueba> findByIdVehiculo(Integer idVehiculo);
 }

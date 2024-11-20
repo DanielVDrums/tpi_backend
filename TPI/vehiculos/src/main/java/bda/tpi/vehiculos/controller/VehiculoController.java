@@ -6,14 +6,9 @@ import bda.tpi.vehiculos.dto.VehiculoDTO;
 import bda.tpi.vehiculos.entity.Vehiculo;
 import bda.tpi.vehiculos.service.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +48,6 @@ public class VehiculoController {
         }
     }
 
-    // Permisos de vehiculo
     @GetMapping("/patente/{patente}")
     public ResponseEntity<?> obtenerVehiculoPorPatente(@PathVariable String patente) {
         Optional<Vehiculo> vehiculo = vehiculoServicio.obtenerVehiculoPorPatente(patente);
@@ -63,24 +57,11 @@ public class VehiculoController {
             return ResponseEntity.ok(vehiculo.get().toDTO());
         }
     }
-    // Permisos de Vehiculo /vehiculos/recibirPosicion
+
     @PostMapping("/evaluarPosicion")
     public ResponseEntity<Void> evaluarRestricciones(@RequestBody PosicionDTO posicionDTO) {
         vehiculoServicio.evaluarRestricciones(posicionDTO);
         return ResponseEntity.ok().build();
-    }
-
-    // Permisos de administrador    /reportes/kilometros
-    @GetMapping("/kilometrosRecorridos/{id}")
-    public ResponseEntity<Double> kilometrosRecorridos(
-            @PathVariable Integer id,
-            @RequestParam(value = "fecha-inicio") String fechaInicio,
-            @RequestParam(value = "fecha-fin") String fechaFin) throws ParseException {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date fechaFinDate = format.parse(fechaFin);
-        Date fechaInicioDate = format.parse(fechaInicio);
-        double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id, fechaInicioDate, fechaFinDate);
-        return ResponseEntity.ok(kilometros);
     }
 }
 

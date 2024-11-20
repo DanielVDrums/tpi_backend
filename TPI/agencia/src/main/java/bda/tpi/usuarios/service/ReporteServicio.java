@@ -33,7 +33,7 @@ public class ReporteServicio {
     public List<Prueba> obtenerPruebasConIncidentes() {
         try {
             ResponseEntity<List<IncidenteDTO>> response = restTemplate.exchange(
-                    "http://127.0.0.1:8083/incidentes",
+                    "http://127.0.0.1:8083/notificacion/incidentes",
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<IncidenteDTO>>() {}
@@ -46,7 +46,11 @@ public class ReporteServicio {
                     Optional<Prueba> prueba = pruebaServicio.obtenerPruebaPorIdVehiculoYFecha(incidente.idVehiculo(), fechaMomento);
                     prueba.ifPresent(pruebas::add);
                 }
-                return pruebas;
+                if (pruebas.isEmpty()){
+                    throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No se encontraron pruebas");
+                }else{
+                    return pruebas;
+                }
             } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo no Encontrado");
             }

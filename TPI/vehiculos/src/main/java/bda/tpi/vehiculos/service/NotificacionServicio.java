@@ -36,7 +36,6 @@ public class NotificacionServicio {
 
             notificacionPromRepository.save(notificacion);
 
-            // Simulación del envío (puedes reemplazar con una integración real)
             System.out.println("Notificación enviada a " + nroTelefono + ": " + notificacionPromDTO.descripcion());
         }
     }

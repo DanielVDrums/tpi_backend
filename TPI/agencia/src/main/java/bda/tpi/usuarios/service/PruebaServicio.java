@@ -1,12 +1,10 @@
 package bda.tpi.usuarios.service;
 
-import bda.tpi.usuarios.dto.IncidenteDTO;
 import bda.tpi.usuarios.dto.PruebaDTO;
 import bda.tpi.usuarios.entity.Empleado;
 import bda.tpi.usuarios.entity.Interesado;
 import bda.tpi.usuarios.entity.Prueba;
 import bda.tpi.usuarios.repository.PruebaRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

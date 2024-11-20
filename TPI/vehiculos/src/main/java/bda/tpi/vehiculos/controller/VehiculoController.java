@@ -6,9 +6,11 @@ import bda.tpi.vehiculos.dto.VehiculoDTO;
 import bda.tpi.vehiculos.entity.Vehiculo;
 import bda.tpi.vehiculos.service.VehiculoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,5 +65,32 @@ public class VehiculoController {
         vehiculoServicio.evaluarRestricciones(posicionDTO);
         return ResponseEntity.ok().build();
     }
+
+
+    @GetMapping("/kilometrosRecorridos/{id}")
+    public ResponseEntity<Double> kilometrosRecorridos(
+            @PathVariable Integer id) {
+
+        System.out.println("ID recibido: " + id);
+
+        double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id);
+        return ResponseEntity.ok(kilometros);
+    }
+
+//    @GetMapping("/kilometrosRecorridos/{id}/{fechaInicio}/{fechaFin}")
+//    public ResponseEntity<Double> kilometrosRecorridos(
+//            @PathVariable Integer id,
+//            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date fechaInicio,
+//            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date fechaFin) {
+//
+//        System.out.println("ID recibido: " + id);
+//        System.out.println("Fecha de inicio recibida: " + fechaInicio);
+//        System.out.println("Fecha de fin recibida: " + fechaFin);
+//
+//        double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id, fechaInicio, fechaFin);
+//        return ResponseEntity.ok(kilometros);
+//    }
+
+
 }
 

@@ -42,7 +42,7 @@ public class PruebaController {
         }
         List<Prueba> pruebas = pruebaServicio.obtenerPruebasEnCursoPorFecha(fechaHora);
         if (pruebas.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No hay pruebas disponibles");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay pruebas disponibles");
         } else {
             return ResponseEntity.ok(pruebas);
         }

@@ -9,8 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 public interface PosicionRepository extends JpaRepository<Posicion, Integer> {
-    @Query("SELECT p FROM Posicion p WHERE p.vehiculo.id = :idVehiculo")
-      List<Posicion> buscarPorVehiculoYFechas(@Param("idVehiculo") Integer idVehiculo);
+    @Query(
+            "SELECT p FROM Posicion p WHERE p.vehiculo.id = :idVehiculo AND p.fecha_hora >= :fechaInicio AND p.fecha_hora <= :fechaFin"
+    )
+      List<Posicion> buscarPorVehiculoYFechas(@Param("idVehiculo") Integer idVehiculo, @Param("fechaInicio") Date fechaInicio, @Param("fechaFin") Date fechaFin);
 
 
 

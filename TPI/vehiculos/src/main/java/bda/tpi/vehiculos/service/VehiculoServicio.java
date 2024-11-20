@@ -11,7 +11,9 @@ import bda.tpi.vehiculos.API.ApiResponse;
 import bda.tpi.vehiculos.entity.Notificacion;
 import bda.tpi.vehiculos.repository.PosicionRepository;
 import bda.tpi.vehiculos.repository.NotificacionRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -135,15 +137,12 @@ public class VehiculoServicio {
         return vehiculoRepository.findByPatente(patente);
     }
 
-    public double calcularKilometrosRecorridos(Integer idVehiculo) {
-        // Recuperar las posiciones del vehículo entre las fechas indicadas
+    public double calcularKilometrosRecorridos(Integer idVehiculo, Date fechaInicio, Date fechaFin) {
 
-        List<Posicion> posiciones = posicionRepository.buscarPorVehiculoYFechas(idVehiculo);
-
-        //List<Posicion> posiciones = posicionRepository.buscarPorVehiculoYFechas(idVehiculo, fechaInicio, fechaFin);
+        List<Posicion> posiciones = posicionRepository.buscarPorVehiculoYFechas(idVehiculo, fechaInicio, fechaFin);
 
         if (posiciones.isEmpty()) {
-            throw new IllegalArgumentException("No se encontraron posiciones para el vehículo con ID " + idVehiculo);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontraron posiciones para el vehículo con ID " + idVehiculo);
         }
 
         // Calcular la distancia total recorrida

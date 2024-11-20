@@ -10,6 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -67,29 +70,27 @@ public class VehiculoController {
     }
 
 
-    @GetMapping("/kilometrosRecorridos/{id}")
-    public ResponseEntity<Double> kilometrosRecorridos(
-            @PathVariable Integer id) {
-
-        System.out.println("ID recibido: " + id);
-
-        double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id);
-        return ResponseEntity.ok(kilometros);
-    }
-
-//    @GetMapping("/kilometrosRecorridos/{id}/{fechaInicio}/{fechaFin}")
+//    @GetMapping("/kilometrosRecorridos/{id}")
 //    public ResponseEntity<Double> kilometrosRecorridos(
-//            @PathVariable Integer id,
-//            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date fechaInicio,
-//            @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date fechaFin) {
+//            @PathVariable Integer id) {
 //
 //        System.out.println("ID recibido: " + id);
-//        System.out.println("Fecha de inicio recibida: " + fechaInicio);
-//        System.out.println("Fecha de fin recibida: " + fechaFin);
 //
-//        double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id, fechaInicio, fechaFin);
+//        double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id);
 //        return ResponseEntity.ok(kilometros);
 //    }
+
+    @GetMapping("/kilometrosRecorridos/{id}")
+    public ResponseEntity<Double> kilometrosRecorridos(
+            @PathVariable Integer id,
+            @RequestParam(value = "fecha-inicio") String fechaInicio,
+            @RequestParam(value = "fecha-fin") String fechaFin) throws ParseException {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date fechaFinDate = format.parse(fechaFin);
+        Date fechaInicioDate = format.parse(fechaInicio);
+        double kilometros = vehiculoServicio.calcularKilometrosRecorridos(id, fechaInicioDate, fechaFinDate);
+        return ResponseEntity.ok(kilometros);
+    }
 
 
 }
